@@ -1,0 +1,22 @@
+*{
+    padding: 0;
+    margin: 0;
+    transition: .4s;
+    box-sizing: border-box;
+    font-family: 'Lexend Deca', sans-serif;;
+}
+
+a{
+    text-decoration: none;
+}
+
+body{
+    min-height: 100vh;
+    background-color: #FFFFFF;
+}
+
+.root{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
