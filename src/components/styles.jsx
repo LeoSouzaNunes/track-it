@@ -16,22 +16,31 @@ const Input = styled.input`
     height: 45px;
     
     padding-left: 12px;
+    padding-right: 5px;
     font-style: normal;
     font-weight: normal;
     font-size: 19.976px;
     line-height: 25px;
+    pointer-events:${props => props.disable ? 'none' : 'auto'};
 
     ::placeholder{
-        color: #DBDBDB;
+        color: #c4bfbf;
     }
 
-    background: #FFFFFF;
+    background: ${props => props.disable ? "#F2F2F2" : "#FFFFFF"};
     border: 1px solid #D5D5D5;
     border-radius: 5px;
 `
 const Button = styled.button`
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    
     width: 303px;
     height: 45px;
+
+    opacity:${props => props.disable ? 0.7 : 1};
+    pointer-events:${props => props.disable ? 'none' : 'auto'};
 
     border-style:none;
     font-style: normal;

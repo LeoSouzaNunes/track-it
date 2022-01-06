@@ -4,6 +4,7 @@ import History from "./History";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import Today from "./Today";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export default function App() {
     return (
