@@ -12,7 +12,7 @@ export default function Habits() {
     return (
         <Main>
             <Header userData={userData} />
-            <MainHabits />
+            <MainHabits userData={userData} />
             <Footer />
         </Main>
     )
