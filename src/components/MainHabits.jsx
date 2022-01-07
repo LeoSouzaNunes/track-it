@@ -1,15 +1,37 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import binIcon from "../assets/bin.svg"
 import styled from "styled-components";
 import addIcon from "../assets/addicon.svg"
+import Loader from "react-loader-spinner";
 
 export default function MainHabits({ userData }) {
+    const [habitsList, setHabitsList] = useState([])
     const [addHabit, setAddHabit] = useState(false);
+    const [load, setLoad] = useState(false)
     const [title, setTitle] = useState('')
     const [pickedDays, setPickedDays] = useState([])
+    console.log(habitsList)
     console.log(pickedDays)
 
     const days = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+
+
+    useEffect(
+        () => {
+            const promiseHabits = axios.get(
+                'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',
+                {
+                    headers: { Authorization: `Bearer ${userData.token}` }
+                }
+            )
+            promiseHabits.then(
+                (response) => {
+                    setHabitsList(response.data)
+                }
+            )
+        }, [userData.token]
+    )
 
     function handlePickedDays(e) {
         const day = e.target.id
@@ -22,6 +44,7 @@ export default function MainHabits({ userData }) {
     }
 
     function handleAddHabit(event) {
+        setLoad(true)
         event.preventDefault()
 
         const promise = axios.post(
@@ -36,12 +59,35 @@ export default function MainHabits({ userData }) {
         )
 
         setTimeout(() => (promise.then(
-            (response) => console.log(response)
+            (response) => {
+                setLoad(false)
+                setTitle('')
+                setPickedDays([])
+                setAddHabit(false)
+                setHabitsList([...habitsList, response.data])
+            }
         )
         ))
 
         promise.catch((error) => console.log(error))
 
+    }
+
+    function handleDeleteHabit(habitId, index) {
+        if (window.confirm('Deseja excluir esse hábito?') === true) {
+
+            const promiseDeleteHabit = axios.delete(
+                `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitId}`,
+                {
+                    headers: { Authorization: `Bearer ${userData.token}` }
+                }
+            )
+            habitsList.splice(index, 1)
+            promiseDeleteHabit.then(() => setHabitsList([...habitsList]))
+
+        } else {
+            return
+        }
     }
 
     return (
@@ -55,6 +101,7 @@ export default function MainHabits({ userData }) {
             {addHabit === true &&
                 <SetHabit onSubmit={handleAddHabit}>
                     <input
+                        disabled={load}
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         type="text"
@@ -66,6 +113,7 @@ export default function MainHabits({ userData }) {
                         {days.map(
                             (day, index) =>
                             (<Day
+                                disabled={load}
                                 picked={pickedDays.includes(index)}
                                 onClick={(e) => handlePickedDays(e)}
                                 id={index}
@@ -77,21 +125,89 @@ export default function MainHabits({ userData }) {
 
                     <ButtonsContainer>
                         <span onClick={() => setAddHabit(false)}>Cancelar</span>
-                        <button type="submit">Salvar</button>
+                        <button
+                            disabled={load}
+                            type="submit">
+                            {load ?
+                                <Loader
+                                    type="ThreeDots"
+                                    color="#FFFFFF"
+                                    height={10}
+                                    width={40}
+                                /> :
+                                "Salvar"
+                            }
+
+
+                        </button>
                     </ButtonsContainer>
                 </SetHabit>
             }
+            {habitsList.length === 0 ?
+                <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                :
+                (habitsList.map(
+                    (habit, index) => (
+                        <Habit key={habit.id}>
 
-            <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                            <h3>{habit.name} <img onClick={() => handleDeleteHabit(habit.id, index)} src={binIcon} alt="Bin icon" /></h3>
+                            <DaysContainer>
+                                {days.map(
+                                    (day, index) =>
+                                    (<Day
+                                        picked={habit.days.includes(index)}
+                                        id={index}
+                                        key={index}>
+                                        {day}
+                                    </Day>)
+                                )}
+                            </DaysContainer>
+
+
+                        </Habit>
+                    )
+                )
+                )
+            }
+
         </MainContainer>
     )
 
 }
 
+const Habit = styled.div`
+    width:340px;
+    min-height:85px;
+    padding: 15px;
+    margin-top:10px;
+
+    border-radius: 5px;
+    background: #FFFFFF;
+
+    h3{
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+
+        padding-bottom: 5px;
+
+        font-style: normal;
+        font-weight: normal;
+        font-size: 19.976px;
+
+        color: #666666;
+    }
+
+`
+
 const Day = styled.div`
 
     width:30px;
     height: 30px;
+
+    :disabled{
+        opacity:0.6
+    }
 
     display:flex;
     align-items:center;
@@ -133,6 +249,10 @@ const ButtonsContainer = styled.div`
         text-align: center;
         color: #FFFFFF;
 
+        :disabled{
+            opacity: 0.6;
+        }
+
         width: 84px;
         height: 35px;
         border-radius: 4.63636px;
@@ -167,6 +287,10 @@ const SetHabit = styled.form`
         min-height: 45px;
         padding-left: 10px;
 
+        :disabled{
+            opacity: 0.6;
+        }
+
         font-style: normal;
         font-weight: normal;
         font-size: 19.976px;
@@ -180,13 +304,14 @@ const SetHabit = styled.form`
 `
 
 const MainContainer = styled.div`
+    width: 100%;
     min-height:100vh;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     
-    padding: 70px 18px;
+    padding: 80px 18px;
     
     background-color:#E5E5E5;
 

@@ -18,7 +18,6 @@ export default function Login() {
             email: "",
             password: ""
         })
-    console.log(inputsData)
 
     function handleInputs(e) {
         const inputName = e.target.name
@@ -28,6 +27,7 @@ export default function Login() {
     }
 
     function handleSubmit(event) {
+        setDisable(true)
         event.preventDefault()
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', inputsData)
@@ -76,7 +76,7 @@ export default function Login() {
 
             <Form onSubmit={handleSubmit}>
                 <Input
-                    disable={disable}
+                    disabled={disable}
                     value={inputsData.email}
                     name="email"
                     type="email"
@@ -86,7 +86,7 @@ export default function Login() {
                 />
 
                 <Input
-                    disable={disable}
+                    disabled={disable}
                     value={inputsData.password}
                     name="password"
                     type="password"
@@ -96,7 +96,7 @@ export default function Login() {
                 />
 
                 <Button
-                    onClick={() => setDisable(true)}
+                    disabled={disable}
                     type="submit"
                 >
                     {disable === true ?

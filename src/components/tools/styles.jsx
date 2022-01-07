@@ -21,13 +21,17 @@ const Input = styled.input`
     font-weight: normal;
     font-size: 19.976px;
     line-height: 25px;
-    pointer-events:${props => props.disable ? 'none' : 'auto'};
+
+    :disabled{
+        pointer-events: none;
+        background: #F2F2F2
+    }
 
     ::placeholder{
         color: #c4bfbf;
     }
 
-    background: ${props => props.disable ? "#F2F2F2" : "#FFFFFF"};
+    background: #FFFFFF;
     border: 1px solid #D5D5D5;
     border-radius: 5px;
 `
@@ -39,8 +43,10 @@ const Button = styled.button`
     width: 303px;
     height: 45px;
 
-    opacity:${props => props.disable ? 0.7 : 1};
-    pointer-events:${props => props.disable ? 'none' : 'auto'};
+    :disabled{
+        opacity:0.6;
+        pointer-events:none;
+    }
 
     border-style:none;
     font-style: normal;

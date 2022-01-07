@@ -53,7 +53,7 @@ export default function SignUp() {
             <img src={logo} alt="TrackIt log" />
             <Form onSubmit={handleSubmit}>
                 <Input
-                    disable={disable}
+                    disabled={disable}
                     value={signUpData.email}
                     name="email"
                     type="email"
@@ -62,7 +62,7 @@ export default function SignUp() {
                 />
 
                 <Input
-                    disable={disable}
+                    disabled={disable}
                     value={signUpData.password}
                     name="password"
                     type="password"
@@ -71,7 +71,7 @@ export default function SignUp() {
                 />
 
                 <Input
-                    disable={disable}
+                    disabled={disable}
                     value={signUpData.name}
                     name="name"
                     type="text"
@@ -80,7 +80,7 @@ export default function SignUp() {
                 />
 
                 <Input
-                    disable={disable}
+                    disabled={disable}
                     value={signUpData.image}
                     name="image"
                     type="url"
@@ -88,7 +88,7 @@ export default function SignUp() {
                     onChange={(e) => handleInputs(e)}
                 />
                 <Button
-                    disable={disable}
+                    disabled={disable}
                     onClick={() => setDisable(true)}
                     type="submit"
                 >
