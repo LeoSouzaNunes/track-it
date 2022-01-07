@@ -1,13 +1,24 @@
 import logoHeader from "../assets/logoHeader.svg"
 import styled from "styled-components"
+import Loader from "react-loader-spinner"
 
-export default function Header() {
+export default function Header({ userData }) {
 
     return (
+
         <HeaderContainer>
             <img src={logoHeader} alt="TrackIt logo header" />
-            <ProfilePic src="https://picsum.photos/seed/picsum/50/50" alt="Profile picture" />
+            {userData === null ?
+                (<Loader
+                    type="ThreeDots"
+                    color="#FFFFFF"
+                    height={40}
+                    width={40}
+                />)
+                :
+                (<ProfilePic src={userData.image} alt="Profile picture" />)}
         </HeaderContainer>
+
     )
 }
 
@@ -29,5 +40,7 @@ const HeaderContainer = styled.div`
 `
 
 const ProfilePic = styled.img`
+    width: 52px;
+    height:52px;
     border-radius:50%;
 `

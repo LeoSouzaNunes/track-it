@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import logo from "../assets/logo.svg"
 import styled from "styled-components"
-import { Form, Input, Button, TextUnderForm } from "./styles"
+import { Form, Input, Button, TextUnderForm } from "./tools/styles"
 import { useState } from "react"
 import axios from "axios"
 import Loader from "react-loader-spinner"

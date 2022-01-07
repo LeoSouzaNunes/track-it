@@ -1,21 +1,23 @@
 import styled from "styled-components"
 import logo from "../assets/logo.svg"
 
-import { Form, Input, Button, TextUnderForm } from './styles'
+import { Form, Input, Button, TextUnderForm } from './tools/styles'
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import axios from "axios"
 import Loader from "react-loader-spinner"
+import UserDataContext from "./tools/UserDataContext"
 
 export default function Login() {
 
     const navigate = useNavigate()
-
+    const { setUserData } = useContext(UserDataContext)
     const [disable, setDisable] = useState(false)
-    const [inputsData, SetInputsData] = useState({
-        email: "",
-        password: ""
-    })
+    const [inputsData, SetInputsData] = useState(
+        {
+            email: "",
+            password: ""
+        })
     console.log(inputsData)
 
     function handleInputs(e) {
@@ -33,7 +35,14 @@ export default function Login() {
         setTimeout(() => {
             promise.then(
                 (response) => {
-                    console.log(response)
+                    setUserData(
+                        {
+                            id: response.data.id,
+                            image: response.data.image,
+                            name: response.data.name,
+                            token: response.data.token
+                        }
+                    )
                     navigate("/hoje")
                 }
             )

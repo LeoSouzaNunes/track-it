@@ -18,11 +18,11 @@ export default function MainToday() {
 
 
 const MainContainer = styled.div`
-    min-height:100vh;
-
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    overflow-y:auto;
     
     padding: 70px 18px;
     
