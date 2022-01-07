@@ -5,8 +5,8 @@ import MainToday from "./MainToday"
 import { useContext } from "react"
 import UserDataContext from "./tools/UserDataContext"
 
-export default function Today() {
 
+export default function Today() {
     const { userData } = useContext(UserDataContext)
 
     return (

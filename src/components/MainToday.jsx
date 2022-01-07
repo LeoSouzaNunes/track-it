@@ -1,12 +1,23 @@
 import styled from "styled-components";
 import Habit from "./Habit";
+import dayjs from "dayjs"
+import ptBr from "dayjs/locale/pt-br"
+import { useEffect, useState } from "react";
 
 export default function MainToday() {
+    const [today, setToday] = useState('')
 
+    useEffect(() => {
+        dayjs.locale(ptBr)
+        let todayIndex = dayjs().day();
+        const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+        setToday(`${weekdays[todayIndex]}, ${dayjs().format('DD/MM')}`)
+    }, []
+    )
     return (
         <MainContainer>
             <Top>
-                <span>Segunda, 17/05</span>
+                <span>{today}</span>
                 <p>Nenhum hábito concluído ainda</p>
             </Top>
             <Habit />
@@ -22,6 +33,7 @@ const MainContainer = styled.div`
     flex-direction: column;
     align-items: center;
 
+    min-height:100vh;
     overflow-y:auto;
     
     padding: 70px 18px;

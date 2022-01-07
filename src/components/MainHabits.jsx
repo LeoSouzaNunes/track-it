@@ -69,7 +69,7 @@ export default function MainHabits({ userData }) {
         )
         ))
 
-        promise.catch((error) => console.log(error))
+        promise.catch((error) => alert(error.message))
 
     }
 
