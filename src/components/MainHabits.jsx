@@ -11,9 +11,6 @@ export default function MainHabits({ userData }) {
     const [load, setLoad] = useState(false)
     const [title, setTitle] = useState('')
     const [pickedDays, setPickedDays] = useState([])
-    console.log(habitsList)
-    console.log(pickedDays)
-
     const days = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 
 

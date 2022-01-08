@@ -3,10 +3,15 @@ import Habit from "./Habit";
 import dayjs from "dayjs"
 import ptBr from "dayjs/locale/pt-br"
 import { useEffect, useState } from "react";
+import axios from "axios";
+import CheckBoxContext from "./tools/CheckBoxContext";
 
-export default function MainToday() {
+export default function MainToday({ userData }) {
     const [today, setToday] = useState('')
-
+    const [todaysHabits, setTodaysHabits] = useState([])
+    console.log(todaysHabits)
+    const [check, setCheck] = useState([])
+    console.log(check)
     useEffect(() => {
         dayjs.locale(ptBr)
         let todayIndex = dayjs().day();
@@ -14,15 +19,47 @@ export default function MainToday() {
         setToday(`${weekdays[todayIndex]}, ${dayjs().format('DD/MM')}`)
     }, []
     )
+
+    useEffect(
+        () => {
+            const promise = axios.get(
+                `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`,
+                {
+                    headers: { Authorization: `Bearer ${userData.token}` }
+                }
+            )
+
+            promise.then(
+                (response) => {
+                    setTodaysHabits(response.data)
+                }
+            )
+
+        }, [userData.token]
+    )
+
     return (
         <MainContainer>
             <Top>
                 <span>{today}</span>
                 <p>Nenhum hábito concluído ainda</p>
             </Top>
-            <Habit />
-            <Habit />
-            <Habit />
+            {todaysHabits.length === 0 ?
+                ('')
+                :
+                (
+                    <CheckBoxContext.Provider value={{ check, setCheck }}>
+                        {todaysHabits.map
+                            (
+                                (habit, index) => (
+                                    <Habit setTodaysHabits={setTodaysHabits} userData={userData} key={index} habit={habit} />
+                                )
+                            )
+                        }
+                    </CheckBoxContext.Provider>
+                )
+
+            }
         </MainContainer>
     )
 }
@@ -33,6 +70,7 @@ const MainContainer = styled.div`
     flex-direction: column;
     align-items: center;
 
+    width:100%;
     min-height:100vh;
     overflow-y:auto;
     

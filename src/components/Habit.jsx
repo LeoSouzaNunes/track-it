@@ -1,18 +1,72 @@
 import styled from "styled-components";
 import checkIcon from "../assets/checkicon.svg"
+import axios from "axios";
+import { useEffect, useContext } from "react";
+import CheckBoxContext from "./tools/CheckBoxContext";
 
-export default function Habit() {
+export default function Habit({ habit, userData, setTodaysHabits }) {
+
+    const { check, setCheck } = useContext(CheckBoxContext)
+    console.log('Dentro do hábito' + check)
+
+    if (habit.done === true && check.includes(habit.id) === false) {
+        setCheck([...check, habit.id])
+    }
+
+    function handleDone(e) {
+        const item = Number(e.target.id)
+
+        if (check.includes(item)) {
+            setCheck(check.filter((id) => id !== item))
+
+            const promiseUncheck = axios.post(
+                `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`,
+                {},
+                {
+                    headers: { Authorization: `Bearer ${userData.token}` }
+                }
+            )
+
+            promiseUncheck.then(
+                () => {
+                    setTodaysHabits(check.filter((id) => id !== item))
+                    console.log('uncheck')
+                    console.log(habit)
+                }
+            )
+            return;
+        }
+
+        const promiseCheck = axios.post(
+            `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`,
+            {},
+            {
+                headers: { Authorization: `Bearer ${userData.token}` }
+            }
+        )
+
+        setCheck([...check, item])
+        console.log(habit.id)
+
+        promiseCheck.then(
+            () => {
+                setTodaysHabits([...check, item])
+                console.log('check')
+            }
+        )
+
+    }
 
     return (
         <HabitCard>
             <Text>
-                <h3>Ler 1 capítulo de livro</h3>
+                <h3>{habit.name}</h3>
                 <p>
-                    Sequência atual: 3 dias<br />
-                    Seu recorde: 5 dias
+                    Sequência atual: {habit.currentSequence} dias<br />
+                    Seu recorde: {habit.highestSequence} dias
                 </p>
             </Text>
-            <CheckBox>
+            <CheckBox id={habit.id} onClick={(e) => handleDone(e)} done={check.includes(habit.id)}>
                 <img src={checkIcon} alt="Check icon" />
             </CheckBox>
         </HabitCard>
@@ -67,5 +121,5 @@ const CheckBox = styled.div`
 
     border: 1px solid #E7E7E7;
     border-radius: 5px;
-    background: #EBEBEB;
+    background-color: ${props => props.done === true ? ("#8FC549") : ("#EBEBEB")};
 `

@@ -12,7 +12,7 @@ export default function Today() {
     return (
         <Main>
             <Header userData={userData} />
-            <MainToday />
+            <MainToday userData={userData} />
             <Footer />
         </Main>
     )
@@ -20,6 +20,7 @@ export default function Today() {
 }
 
 const Main = styled.div`
+    width:100%;
     min-height: 100vh;
     
     display:flex;

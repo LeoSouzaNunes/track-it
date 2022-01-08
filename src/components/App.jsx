@@ -11,7 +11,6 @@ import { useState } from "react";
 
 export default function App() {
     const [userData, setUserData] = useState(null)
-    console.log(userData)
 
     return (
         <BrowserRouter>
