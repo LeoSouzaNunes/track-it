@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { useContext } from "react/cjs/react.development";
+import CheckBoxContext from "./tools/CheckBoxContext";
 
 export default function Footer() {
+
+    const { dailyProgress } = useContext(CheckBoxContext)
 
     return (
         <FooterContainer>
@@ -13,7 +17,7 @@ export default function Footer() {
             <Link to="/hoje">
                 <TodayButton >
                     <CircularProgressbar
-                        value={66}
+                        value={dailyProgress}
                         background
                         backgroundPadding={6}
                         styles={buildStyles({

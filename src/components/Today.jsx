@@ -6,11 +6,13 @@ import { useContext } from "react"
 import UserDataContext from "./tools/UserDataContext"
 
 
+
 export default function Today() {
     const { userData } = useContext(UserDataContext)
 
     return (
         <Main>
+
             <Header userData={userData} />
             <MainToday userData={userData} />
             <Footer />

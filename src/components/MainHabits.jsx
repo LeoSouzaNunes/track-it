@@ -5,7 +5,7 @@ import styled from "styled-components";
 import addIcon from "../assets/addicon.svg"
 import Loader from "react-loader-spinner";
 
-export default function MainHabits({ userData }) {
+export default function MainHabits({ userData, setDailyProgress }) {
     const [habitsList, setHabitsList] = useState([])
     const [addHabit, setAddHabit] = useState(false);
     const [load, setLoad] = useState(false)
@@ -80,6 +80,7 @@ export default function MainHabits({ userData }) {
                 }
             )
             habitsList.splice(index, 1)
+            setDailyProgress(0)
             promiseDeleteHabit.then(() => setHabitsList([...habitsList]))
 
         } else {
