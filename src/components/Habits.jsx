@@ -9,12 +9,12 @@ import CheckBoxContext from "./tools/CheckBoxContext"
 export default function Habits() {
 
     const { userData } = useContext(UserDataContext)
-    const { dailyProgress } = useContext(CheckBoxContext)
+    const { dailyProgress, setDailyProgress } = useContext(CheckBoxContext)
 
     return (
         <Main>
             <Header userData={userData} />
-            <MainHabits userData={userData} />
+            <MainHabits setDailyProgress={setDailyProgress} userData={userData} />
             <Footer dailyProgress={dailyProgress} />
         </Main>
     )

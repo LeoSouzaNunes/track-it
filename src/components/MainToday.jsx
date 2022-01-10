@@ -11,7 +11,6 @@ export default function MainToday({ userData }) {
     const [today, setToday] = useState('')
     const [todaysHabits, setTodaysHabits] = useState([])
     const [check, setCheck] = useState([])
-    setDailyProgress((check.length * 100) / todaysHabits.length)
 
     if (todaysHabits.length !== 0) {
         todaysHabits.forEach((habit) => {
@@ -20,6 +19,7 @@ export default function MainToday({ userData }) {
             }
         }
         )
+        setDailyProgress((check.length * 100) / todaysHabits.length)
     }
     useEffect(() => {
         dayjs.locale(ptBr)
