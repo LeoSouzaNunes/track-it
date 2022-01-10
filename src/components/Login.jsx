@@ -48,8 +48,9 @@ export default function Login() {
             )
         }, 2000)
 
-        promise.catch(function (error) {
-            alert(error.response)
+        promise.catch(() => {
+            alert('Por favor preencha os dados de cadastro corretamente.')
+            setDisable(false)
         })
     }
 
