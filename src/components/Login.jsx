@@ -10,6 +10,7 @@ import UserDataContext from "./tools/UserDataContext"
 
 export default function Login() {
 
+    const localStorageData = localStorage.getItem("userDataStorage")
     const navigate = useNavigate()
     const { setUserData } = useContext(UserDataContext)
     const [disable, setDisable] = useState(false)
@@ -24,6 +25,39 @@ export default function Login() {
         const inputValue = e.target.value
 
         SetInputsData({ ...inputsData, [inputName]: inputValue })
+    }
+    if (localStorageData !== null) {
+        const data = JSON.parse(localStorageData)
+
+        const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login',
+            {
+                email: data.email,
+                password: data.password
+            }
+        )
+
+
+        promise.then(
+            (response) => {
+                setUserData(
+                    {
+                        id: response.data.id,
+                        image: response.data.image,
+                        name: response.data.name,
+                        token: response.data.token
+                    }
+                )
+                const dataStorageString = JSON.stringify(response.data)
+                localStorage.setItem("userDataStorage", dataStorageString)
+                navigate("/hoje")
+            }
+        )
+
+        promise.catch(() => {
+            alert('Por favor preencha os dados de cadastro corretamente.')
+            setDisable(false)
+        })
+
     }
 
     function handleSubmit(event) {
@@ -43,6 +77,8 @@ export default function Login() {
                             token: response.data.token
                         }
                     )
+                    const dataStorageString = JSON.stringify(response.data)
+                    localStorage.setItem("userDataStorage", dataStorageString)
                     navigate("/hoje")
                 }
             )

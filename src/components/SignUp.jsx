@@ -34,7 +34,10 @@ export default function SignUp() {
 
         setTimeout(() => {
             promise.then(
-                () => navigate('/')
+                () => {
+                    navigate('/')
+                    setDisable(false)
+                }
             )
         }, 2000
         )
