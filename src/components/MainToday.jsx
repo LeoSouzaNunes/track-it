@@ -44,7 +44,7 @@ export default function MainToday({ userData }) {
                 }
             )
 
-        }, [check]
+        }, []
     )
 
     function handleDone(e) {
@@ -62,7 +62,7 @@ export default function MainToday({ userData }) {
 
             promiseUncheck.then(
                 () => {
-                    console.log('uncheck')
+
                     const promise = axios.get(
                         `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`,
                         {
@@ -91,7 +91,7 @@ export default function MainToday({ userData }) {
         )
         promiseCheck.then(
             () => {
-                console.log('check')
+
                 const promise = axios.get(
                     `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today`,
                     {
@@ -107,7 +107,7 @@ export default function MainToday({ userData }) {
             }
         )
     }
-    console.log(check)
+
     return (
         <MainContainer>
             <Top>
@@ -130,10 +130,14 @@ export default function MainToday({ userData }) {
                             <HabitCard key={index}>
                                 <Text>
                                     <h3>{habit.name}</h3>
-                                    <p>
-                                        Sequência atual: {habit.currentSequence} dias<br />
-                                        Seu recorde: {habit.highestSequence} dias
-                                    </p>
+                                    <div>
+                                        <SequenceText green={habit.currentSequence !== 0}>
+                                            Sequência atual: <strong>{habit.currentSequence} {habit.currentSequence === 1 ? ('dia') : ('dias')}</strong>
+                                        </SequenceText>
+                                        <SequenceText green={habit.currentSequence === habit.highestSequence && habit.highestSequence > 0}>
+                                            Seu recorde: <strong>{habit.highestSequence} {habit.highestSequence === 1 ? ('dia') : ('dias')}</strong>
+                                        </SequenceText>
+                                    </div>
                                 </Text>
                                 <CheckBox id={habit.id} onClick={(e) => handleDone(e)} done={habit.done}>
                                     <img id={habit.id} src={checkIcon} alt="Check icon" />
@@ -195,7 +199,7 @@ const HabitCard = styled.div`
 
     padding: 15px 15px;
     margin-bottom: 10px;
-
+  
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -207,6 +211,7 @@ const Text = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
 
     h3{
         font-style: normal;
@@ -219,13 +224,25 @@ const Text = styled.div`
     }
 
     p{
+        
+    }
+`
+const SequenceText = styled.p`
         font-style: normal;
         font-weight: normal;
         font-size: 12.976px;
         line-height: 16px;
 
-        color: #666666;
-    }
+        color: #666666 ;
+
+        strong{
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12.976px;
+            line-height: 16px;
+
+            color:${props => props.green ? ('#8FC549') : ('#666666')}
+        }
 `
 const CheckBox = styled.div`
     display: flex;

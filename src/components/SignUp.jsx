@@ -40,8 +40,8 @@ export default function SignUp() {
         )
 
         promise.catch(
-            () => {
-                alert('Por favor, preencha os campos de cadastro corretamente.')
+            (error) => {
+                alert(error.response)
                 setDisable(false)
             }
 
