@@ -4,16 +4,17 @@ import Footer from "./Footer"
 import MainHistory from "./MainHistory"
 import { useContext } from "react"
 import UserDataContext from "./tools/UserDataContext"
+import CheckBoxContext from "./tools/CheckBoxContext"
 
 export default function History() {
-
+    const { dailyProgress } = useContext(CheckBoxContext)
     const { userData } = useContext(UserDataContext)
 
     return (
         <Main>
             <Header userData={userData} />
             <MainHistory />
-            <Footer />
+            <Footer dailyProgress={dailyProgress} />
         </Main>
     )
 
