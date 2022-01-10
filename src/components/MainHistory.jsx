@@ -1,6 +1,10 @@
 import styled from "styled-components";
+import Calendar from "react-calendar";
+import { useState } from "react";
+import dayjs from "dayjs";
 
 export default function MainHistory() {
+    const [value, onChange] = useState(new Date());
 
     return (
         <MainContainer>
@@ -8,6 +12,13 @@ export default function MainHistory() {
                 <span>Histórico</span>
             </Top>
             <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+            <Calendar
+                formatDay={(locale, date) => dayjs(date).format("DD")}
+                locale="pt-br"
+                calendarType="US"
+                onChange={onChange}
+                value={value}
+            />
         </MainContainer>
     )
 }

@@ -13,7 +13,7 @@ export default function History() {
     return (
         <Main>
             <Header userData={userData} />
-            <MainHistory />
+            <MainHistory userData={userData} />
             <Footer dailyProgress={dailyProgress} />
         </Main>
     )

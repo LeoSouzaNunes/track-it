@@ -8,6 +8,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import 'react-circular-progressbar/dist/styles.css';
 import UserDataContext from "./tools/UserDataContext";
 import CheckBoxContext from "./tools/CheckBoxContext"
+import 'react-calendar/dist/Calendar.css';
 import { useState } from "react";
 
 export default function App() {
