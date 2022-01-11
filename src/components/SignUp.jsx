@@ -29,12 +29,14 @@ export default function SignUp() {
 
     function handleSubmit(event) {
         event.preventDefault()
+        console.log('Entrei em handleSubmit')
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', signUpData)
 
         setTimeout(() => {
             promise.then(
                 () => {
+                    console.log('Entrei no post')
                     navigate('/')
                     setDisable(false)
                 }
