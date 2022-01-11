@@ -43,10 +43,7 @@ const Button = styled.button`
     width: 303px;
     height: 45px;
 
-    :disabled{
-        opacity:0.6;
-        pointer-events:none;
-    }
+    pointer-events: ${props => props.disable ? ('none') : ('all')};
 
     border-style:none;
     font-style: normal;

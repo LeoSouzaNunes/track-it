@@ -116,7 +116,7 @@ export default function Login() {
                 />
 
                 <Button
-                    disabled={disable}
+                    disable={disable}
                     type="submit"
                 >
                     {disable === true ?

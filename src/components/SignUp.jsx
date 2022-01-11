@@ -29,14 +29,13 @@ export default function SignUp() {
 
     function handleSubmit(event) {
         event.preventDefault()
-        console.log('Entrei em handleSubmit')
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', signUpData)
 
         setTimeout(() => {
             promise.then(
                 () => {
-                    console.log('Entrei no post')
+
                     navigate('/')
                     setDisable(false)
                 }
@@ -65,6 +64,7 @@ export default function SignUp() {
                     type="email"
                     placeholder="email"
                     onChange={(e) => handleInputs(e)}
+                    required
                 />
 
                 <Input
@@ -74,6 +74,7 @@ export default function SignUp() {
                     type="password"
                     placeholder="senha"
                     onChange={(e) => handleInputs(e)}
+                    required
                 />
 
                 <Input
@@ -83,6 +84,7 @@ export default function SignUp() {
                     type="text"
                     placeholder="nome"
                     onChange={(e) => handleInputs(e)}
+                    required
                 />
 
                 <Input
@@ -92,11 +94,12 @@ export default function SignUp() {
                     type="url"
                     placeholder="foto"
                     onChange={(e) => handleInputs(e)}
+                    required
                 />
                 <Button
-                    disabled={disable}
-                    onClick={() => setDisable(true)}
                     type="submit"
+                    disable={disable}
+                    onClick={() => setDisable(true)}
                 >
                     {disable === true ?
                         <Loader
