@@ -3,12 +3,12 @@
 A tracking habits application where you can challenge yourself to keep your streaks. You are able to create your own account, add and delete habits for specific days in the week and mark an habit as done to update your personal record.
 
 <span>
-  <img src="https://user-images.githubusercontent.com/93560377/149671774-db9b36a4-c2ec-4d82-bdc8-6d37caf08251.png" width="150px"/>
-  <img src="https://user-images.githubusercontent.com/93560377/149671776-ade55a5e-789e-4b34-9105-7d5ca1703dff.png" width="150px"/>
-  <img src="https://user-images.githubusercontent.com/93560377/149671777-1b797dd8-cfb0-4097-b108-e58a595657ad.png" width="150px"/>
-  <img src="https://user-images.githubusercontent.com/93560377/149671778-943937f2-41fc-42bf-b72b-9a41e6eabf2f.png" width="150px"/>
-  <img src="https://user-images.githubusercontent.com/93560377/149671779-6b2cbc69-f2a1-4071-8c67-11f5a1d52c6f.png" width="150px"/>
-  <img src="https://user-images.githubusercontent.com/93560377/149671780-4efa9970-f1df-4508-b816-550e7542a307.png" width="150px"/>
+  <img src="https://user-images.githubusercontent.com/93560377/149671774-db9b36a4-c2ec-4d82-bdc8-6d37caf08251.png" width="200px"/>
+  <img src="https://user-images.githubusercontent.com/93560377/149671776-ade55a5e-789e-4b34-9105-7d5ca1703dff.png" width="200px"/>
+  <img src="https://user-images.githubusercontent.com/93560377/149671777-1b797dd8-cfb0-4097-b108-e58a595657ad.png" width="200px"/>
+  <img src="https://user-images.githubusercontent.com/93560377/149671778-943937f2-41fc-42bf-b72b-9a41e6eabf2f.png" width="200px"/>
+  <img src="https://user-images.githubusercontent.com/93560377/149671779-6b2cbc69-f2a1-4071-8c67-11f5a1d52c6f.png" width="200px"/>
+  <img src="https://user-images.githubusercontent.com/93560377/149671780-4efa9970-f1df-4508-b816-550e7542a307.png" width="200px"/>
 <span/>
   
 Take a look at our [demo](https://cineflex-react-app.vercel.app/).
