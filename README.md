@@ -15,7 +15,7 @@ Take a look at our [demo](https://cineflex-react-app.vercel.app/).
 
 ## About
 
-The following features are availabe: 
+The following features are available: 
 
 * Sign-up.
 * Keep your account logged in.
